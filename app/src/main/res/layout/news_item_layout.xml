@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
+
+        <TextView
+            android:id="@+id/newsTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:textFontWeight="900"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text="Title" />
+
+        <ImageView
+            android:id="@+id/newsFav"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:paddingTop="4dp"
+            android:src="@drawable/favorite_24" />
+
+        <TextView
+            android:id="@+id/newsDate"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="11dp"
+            android:textColor="@color/black"
+            android:gravity="right"
+            android:text="09 Dec 2021" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/newsDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:layout_marginBottom="5dp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="Description" />
+
+</LinearLayout>

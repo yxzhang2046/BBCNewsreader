@@ -1,10 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.bbcnewsreader.MainActivity">
-    <item
-        android:id="@+id/action_settings"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/item_twitter"
+        android:title="Twitter"
+        android:icon="@drawable/icons8_facebook"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/item_facebook"
+        android:title="Facebook"
+        android:icon="@drawable/icons8_facebook"
+        android:orderInCategory="200"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/item_instagram"
+        android:title="Instagram"
+        android:icon="@drawable/icons8_instagram"
+        android:orderInCategory="300"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/item_linkedin"
+        android:title="Linkedin"
+        android:icon="@drawable/icons8_linkedin"
+        android:orderInCategory="400"
         app:showAsAction="never" />
+
 </menu>
