@@ -1,6 +1,9 @@
 package com.example.bbcnewsreader;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
@@ -10,13 +13,18 @@ import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -38,13 +46,16 @@ public class NewsListActivity extends AppCompatActivity {
     private ListView newsList;
     private NewsListAdapter newsAdapter;
     private List<News> news = new ArrayList<News>();
-
-    private final int FAV_NEWS_REQUEST = 501;
+    private boolean isTablet = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_list);
+
+        Toolbar tBar = findViewById(R.id.toolbar);
+        tBar.setTitle(getString(R.string.news_list_activity));
+        setSupportActionBar(tBar);
 
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
@@ -53,11 +64,65 @@ public class NewsListActivity extends AppCompatActivity {
         newsList = findViewById(R.id.newsList);
         newsList.setAdapter(newsAdapter);
 
+        isTablet = findViewById(R.id.fragmentLocation) != null;
+
         BBCNewsQuery bbsNewsQuery = new BBCNewsQuery();
         bbsNewsQuery.execute("http://feeds.bbci.co.uk/news/world/us_and_canada/rss.xml");
 
         SwipeRefreshLayout refresher = findViewById(R.id.refresher);
         refresher.setOnRefreshListener( () -> refresher.setRefreshing(false) );
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        String message = null;
+        Intent switchPage = new Intent();
+
+        switch (item.getItemId()) {
+            case R.id.item_main:
+                message = "Switch to " + getString(R.string.main_page);
+                switchPage = new Intent(this, MainActivity.class);
+                startActivity(switchPage);
+                break;
+            case R.id.item_news_list:
+                message = "Switch to " + getString(R.string.news_list_page);
+                switchPage = new Intent(this, NewsListActivity.class);
+                startActivity(switchPage);
+                break;
+            case R.id.item_news_detail:
+                message = "Switch to " + getString(R.string.news_detail_page);
+                switchPage = new Intent(this, DetailActivity.class);
+                startActivity(switchPage);
+                break;
+            case R.id.item_fav_list:
+                message = "Switch to " + getString(R.string.fav_list_page);
+                switchPage = new Intent(this, FavListActivity.class);
+                startActivity(switchPage);
+                break;
+            case R.id.item_help:
+                message = "Open " + getString(R.string.page_help);
+                showDialog();
+                break;
+        }
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        return true;
+    }
+
+    private void showDialog() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle(R.string.help_dialog_title)
+                .setMessage(getString(R.string.help_dialog_content_news_list))
+                .setPositiveButton(R.string.help_dialog_positive_button, (click, arg) -> { })
+                .create()
+                .show();
     }
 
     private class BBCNewsQuery extends AsyncTask<String, Integer, String> {
@@ -296,6 +361,30 @@ public class NewsListActivity extends AppCompatActivity {
             favListPage.putExtras(bundle);
             newsFav.setOnClickListener( (click) -> {
                 startActivity(favListPage);
+            });
+
+            Intent nextActivity = new Intent(getApplicationContext(), DetailActivity.class);
+            newsDescription.setOnClickListener( (click) -> {
+                SimpleDateFormat originSdf = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z");
+                String originDateTxt = originSdf.format(currentNews.getPubDate());
+                Bundle dataToPass = new Bundle();
+                dataToPass.putString("title", currentNews.getTitle());
+                dataToPass.putString("pubdate", originDateTxt);
+                dataToPass.putString("link", currentNews.getLink());
+                dataToPass.putString("description", currentNews.getDescription());
+
+                if (isTablet) {
+                    DetailFragment detailFragment = new DetailFragment();
+                    detailFragment.setArguments(dataToPass);
+                    detailFragment.setTablet(isTablet);
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.fragmentLocation, detailFragment)
+                            .commit();
+                } else {
+                    nextActivity.putExtras(dataToPass);
+                    startActivity(nextActivity);
+                }
             });
 
             return newView;

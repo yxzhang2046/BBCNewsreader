@@ -2,28 +2,34 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/item_twitter"
-        android:title="Twitter"
-        android:icon="@drawable/icons8_facebook"
+    <item android:id="@+id/item_main"
+        android:title="@string/main_page"
+        android:icon="@drawable/icons8_home_24"
         android:orderInCategory="100"
         app:showAsAction="always" />
 
-    <item android:id="@+id/item_facebook"
-        android:title="Facebook"
-        android:icon="@drawable/icons8_facebook"
+    <item android:id="@+id/item_news_list"
+        android:title="@string/news_list_page"
+        android:icon="@drawable/icons8_internet_folder_24"
         android:orderInCategory="200"
         app:showAsAction="always" />
 
-    <item android:id="@+id/item_instagram"
-        android:title="Instagram"
-        android:icon="@drawable/icons8_instagram"
+    <item android:id="@+id/item_news_detail"
+        android:title="@string/news_detail_page"
+        android:icon="@drawable/icons8_news_24"
         android:orderInCategory="300"
         app:showAsAction="always" />
 
-    <item android:id="@+id/item_linkedin"
-        android:title="Linkedin"
-        android:icon="@drawable/icons8_linkedin"
+    <item android:id="@+id/item_fav_list"
+        android:title="@string/fav_list_page"
+        android:icon="@drawable/icons8_favorite_folder_24"
         android:orderInCategory="400"
-        app:showAsAction="never" />
+        app:showAsAction="always" />
+
+    <item android:id="@+id/item_help"
+        android:title="@string/page_help"
+        android:icon="@drawable/icons8_info_24"
+        android:orderInCategory="500"
+        app:showAsAction="always" />
 
 </menu>

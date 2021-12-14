@@ -1,29 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/side_nav_bar"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/navChat"
+        android:id="@+id/activityTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="Chat Page" />
+        android:textSize="18dp"
+        android:textColor="@color/white"
+        android:text="Main Activity" />
 
     <TextView
-        android:id="@+id/navWeather"
+        android:id="@+id/versionNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="Weather Forecast" />
-
-    <TextView
-        android:id="@+id/navLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="Go back to login" />
+        android:textColor="@color/white"
+        android:text="1.0" />
 
 </LinearLayout>

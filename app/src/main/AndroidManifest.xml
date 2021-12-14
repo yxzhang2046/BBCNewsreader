@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BBCNewsReader">
         <activity
+            android:name=".DetailActivity"
+            android:exported="true" />
+        <activity
             android:name=".ToolbarActivity"
             android:exported="true" />
         <activity
