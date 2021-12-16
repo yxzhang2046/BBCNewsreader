@@ -5,7 +5,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,12 +15,31 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 public class DetailActivity extends AppCompatActivity {
+    final String defaultTitle = "";
+    final String defaultLink = "";
+    final String defaultPubDate = "";
+    final String defaultDescription = "";
+    Bundle dataToPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        Bundle dataToPass = getIntent().getExtras();
+        dataToPass = getIntent().getExtras();
+
+        SharedPreferences sharedPref = getSharedPreferences("newsDetail", Context.MODE_PRIVATE);
+        String titleValue = sharedPref.getString("title", defaultTitle);
+        String descriptionValue = sharedPref.getString("description", defaultDescription);
+        String linkValue = sharedPref.getString("link", defaultLink);
+        String pubDateValue = sharedPref.getString("pubDate", defaultPubDate);
+
+        if(dataToPass == null && !titleValue.equals(defaultTitle)) {
+            dataToPass = new Bundle();
+            dataToPass.putString("title", titleValue);
+            dataToPass.putString("description", descriptionValue);
+            dataToPass.putString("link", linkValue);
+            dataToPass.putString("pubDate", pubDateValue);
+        }
 
         Toolbar tBar = findViewById(R.id.toolbar);
         tBar.setTitle(getString(R.string.news_detail_activity));
@@ -33,6 +54,19 @@ public class DetailActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.fragmentLocation, detailFragment)
                 .commit();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        SharedPreferences sharedPref = getSharedPreferences("newsDetail", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("title", dataToPass.getString("title"));
+        editor.putString("description", dataToPass.getString("description"));
+        editor.putString("link", dataToPass.getString("link"));
+        editor.putString("pubDate", dataToPass.getString("pubDate"));
+        editor.commit();
     }
 
     @Override

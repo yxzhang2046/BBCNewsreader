@@ -29,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class FavListActivity extends AppCompatActivity {
     private ListView favList;
@@ -142,9 +143,9 @@ public class FavListActivity extends AppCompatActivity {
             String titleTxt = results.getString(titleColumnIndex);
             String descriptionTxt = results.getString(descriptionColumnIndex);
             String linkTxt = results.getString(linkColumnIndex);
-            Date pubdate = new Date(results.getLong(pubdateColumnIndex));
+            Date pubDate = new Date(results.getLong(pubdateColumnIndex));
 
-            News news = new News(id, titleTxt, descriptionTxt, linkTxt, pubdate);
+            News news = new News(id, titleTxt, descriptionTxt, linkTxt, pubDate);
             favs.add(news);
         }
     }
@@ -174,6 +175,7 @@ public class FavListActivity extends AppCompatActivity {
         favs.remove(pos);
         db.delete(DBOpenHelper.TABLE_NAME, DBOpenHelper.COL_ID + "= ?", new String[] {Long.toString(id)});
         favAdapter.notifyDataSetChanged();
+        Toast.makeText(this, getText(R.string.fav_remove_action), Toast.LENGTH_SHORT).show();
     }
 
     private class FavListAdapter extends BaseAdapter {
@@ -213,7 +215,7 @@ public class FavListActivity extends AppCompatActivity {
             String text = "<a href='"+currentNews.getLink()+"'> "+currentNews.getTitle()+" </a>";
             favTitle.setText(Html.fromHtml(text));
 
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
             favDate.setText(sdf.format(currentNews.getPubDate()));
             favDescription.setText(currentNews.getDescription());
 
@@ -223,11 +225,11 @@ public class FavListActivity extends AppCompatActivity {
 
             Intent nextActivity = new Intent(getApplicationContext(), DetailActivity.class);
             favDescription.setOnClickListener( (click) -> {
-                SimpleDateFormat originSdf = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z");
+                SimpleDateFormat originSdf = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z", Locale.ENGLISH);
                 String originDateTxt = originSdf.format(currentNews.getPubDate());
                 Bundle dataToPass = new Bundle();
                 dataToPass.putString("title", currentNews.getTitle());
-                dataToPass.putString("pubdate", originDateTxt);
+                dataToPass.putString("pubDate", originDateTxt);
                 dataToPass.putString("link", currentNews.getLink());
                 dataToPass.putString("description", currentNews.getDescription());
 

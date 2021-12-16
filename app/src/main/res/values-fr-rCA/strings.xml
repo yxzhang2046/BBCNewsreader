@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">fr BBC News reader</string>
+    <string name="action_settings">fr Settings</string>
+    <string name="main_title">fr BBC News reader</string>
+    <string name="load_news">fr Load BBC News</string>
+    <string name="version_number">fr Version: 3.0</string>
+
+    <string name="main_activity">fr Main Activity</string>
+    <string name="news_list_activity">fr News List Activity</string>
+    <string name="news_detail_activity">fr News Detail Activity</string>
+    <string name="fav_list_activity">fr Favourite List Activity</string>
+
+    <string name="main_page">fr Main page</string>
+    <string name="news_list_page">fr News list page</string>
+    <string name="news_detail_page">fr News detail page</string>
+    <string name="fav_list_page">fr Favourite list page</string>
+    <string name="page_help">fr Page Help</string>
+    <string name="fav_add_action">fr Add this news to favourite list.</string>
+    <string name="fav_remove_action">fr Remove this news from favourite list.</string>
+
+    <string name="help_dialog_title">fr Page instructions: </string>
+    <string name="help_dialog_positive_button">fr Okay</string>
+    <string name="help_dialog_content_main">fr On the main page, you can use the top Toolbar and Navigation Drawer to navigate all activities. It has a load button to load BBC news XML, click to turn to the news list page.</string>
+    <string name="help_dialog_content_news_list">fr The news list page shows all the news. There has a progress loading bar on top. You can click news title to open web browser page, or click description to open news detail page. Also, you can click favourite to add this news to the favourite list page.</string>
+    <string name="help_dialog_content_news_detail">fr This page display news detail. It shows the news title, published date-time, and description. Click news title will open web browser page.</string>
+    <string name="help_dialog_content_fav_list">fr This page store your favourite news list. You can click news title to open web browser page, or click description to open news detail page. And, you can click empty favourite to remove this news from the favourite list.</string>
+
+    <string name="navigation_drawer_open">fr Open navigation drawer</string>
+    <string name="navigation_drawer_close">fr Close navigation drawer</string>
+
+</resources>

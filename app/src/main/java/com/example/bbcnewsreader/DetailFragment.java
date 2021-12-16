@@ -13,13 +13,13 @@ import android.widget.TextView;
 public class DetailFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "title";
-    private static final String ARG_PARAM2 = "pubdate";
+    private static final String ARG_PARAM2 = "pubDate";
     private static final String ARG_PARAM3 = "link";
     private static final String ARG_PARAM4 = "description";
 
     private boolean isTablet;
     private String title;
-    private String pubdate;
+    private String pubDate;
     private String link;
     private String description;
 
@@ -44,7 +44,7 @@ public class DetailFragment extends Fragment {
 
         if (getArguments() != null) {
             title = getArguments().getString(ARG_PARAM1);
-            pubdate = getArguments().getString(ARG_PARAM2);
+            pubDate = getArguments().getString(ARG_PARAM2);
             link = getArguments().getString(ARG_PARAM3);
             description = getArguments().getString(ARG_PARAM4);
 
@@ -56,25 +56,9 @@ public class DetailFragment extends Fragment {
             detailTitle.setMovementMethod(LinkMovementMethod.getInstance());
             String text = "<a href='"+link+"'> "+title+" </a>";
             detailTitle.setText(Html.fromHtml(text));
-            detailPubdate.setText(pubdate);
+            detailPubdate.setText(pubDate);
             detailDescription.setText(description);
         }
-
-//        Button hideBtn = result.findViewById(R.id.hideButton);
-//        hideBtn.setOnClickListener(click -> {
-//            if (isTablet) {
-//                ChatRoomActivity parent = (ChatRoomActivity)getActivity();
-//                parent.getSupportFragmentManager()
-//                        .beginTransaction()
-//                        .remove(this)
-//                        .commit();
-//            } else {
-//                EmptyActivity parent = (EmptyActivity)getActivity();
-//                Intent backToChatRoomActivity = new Intent();
-//                parent.setResult(Activity.RESULT_OK, backToChatRoomActivity);
-//                parent.finish();
-//            }
-//        });
 
         return result;
     }

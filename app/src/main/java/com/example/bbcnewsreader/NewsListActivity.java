@@ -18,7 +18,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -223,7 +222,7 @@ public class NewsListActivity extends AppCompatActivity {
 
         private Date generateDate(String datetime) {
             String formatStr = "EEE, d MMM yyyy HH:mm:ss z";
-            SimpleDateFormat formatter = new SimpleDateFormat(formatStr, Locale.getDefault());
+            SimpleDateFormat formatter = new SimpleDateFormat(formatStr, Locale.ENGLISH);
             ParsePosition pp1 = new ParsePosition(0);
             Date date = formatter.parse(datetime, pp1);
 
@@ -345,9 +344,8 @@ public class NewsListActivity extends AppCompatActivity {
             String text = "<a href='"+currentNews.getLink()+"'> "+currentNews.getTitle()+" </a>";
             newsTitle.setText(Html.fromHtml(text));
 
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
             String newsDateTxt = sdf.format(currentNews.getPubDate());
-            long newsDateStamp = currentNews.getPubDate().getTime();
             newsDate.setText(newsDateTxt);
             newsDescription.setText(currentNews.getDescription());
 
@@ -357,19 +355,19 @@ public class NewsListActivity extends AppCompatActivity {
             bundle.putString("description", currentNews.getDescription());
             bundle.putString("link", currentNews.getLink());
             bundle.putString("pubDate", newsDateTxt);
-            bundle.putLong("pubDate", newsDateStamp);
             favListPage.putExtras(bundle);
             newsFav.setOnClickListener( (click) -> {
                 startActivity(favListPage);
+                Toast.makeText(getApplicationContext(), getText(R.string.fav_add_action), Toast.LENGTH_SHORT).show();
             });
 
             Intent nextActivity = new Intent(getApplicationContext(), DetailActivity.class);
             newsDescription.setOnClickListener( (click) -> {
-                SimpleDateFormat originSdf = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z");
+                SimpleDateFormat originSdf = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z", Locale.ENGLISH);
                 String originDateTxt = originSdf.format(currentNews.getPubDate());
                 Bundle dataToPass = new Bundle();
                 dataToPass.putString("title", currentNews.getTitle());
-                dataToPass.putString("pubdate", originDateTxt);
+                dataToPass.putString("pubDate", originDateTxt);
                 dataToPass.putString("link", currentNews.getLink());
                 dataToPass.putString("description", currentNews.getDescription());
 

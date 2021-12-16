@@ -17,10 +17,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private Button loadBtn;
@@ -44,10 +44,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.navView);
         navigationView.setNavigationItemSelectedListener(this);
         View header = navigationView.getHeaderView(0);
-        TextView activityTitle = (TextView) header.findViewById(R.id.activityTitle);
-        activityTitle.setText(getString(R.string.app_name));
-        TextView versionNumber = (TextView) header.findViewById(R.id.versionNumber);
-        versionNumber.setText(getString(R.string.version_number));
 
         loadBtn = findViewById(R.id.loadButton);
         Intent newsListPage = new Intent(this, NewsListActivity.class);
@@ -142,7 +138,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawerLayout = findViewById(R.id.drawer);
         drawerLayout.closeDrawer(GravityCompat.START);
 
-        Toast.makeText(this, "NavigationDrawer: " + message, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "NavigationDrawer: " + message, Toast.LENGTH_SHORT).show();
+//        Snackbar.make(drawerLayout, "NavigationDrawer: " + message, Snackbar.LENGTH_LONG).show();
         return false;
     }
 
